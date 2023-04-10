@@ -200,28 +200,29 @@ class AnvilWorld implements WorldInterface
      */
     public function copyOtherFiles(): void
     {
-        @mkdir($this->dest);
-        foreach ($this->otherFiles as $file) {
-            if(is_link("$this->path/$file")){
-                continue;
-            }
-            if (is_dir("$this->path/$file")) {
-                Helper::copyDirectory("$this->path/$file", "$this->dest/$file");
-            } else {
-                $parts = explode('/', $file);
-                if (count($parts) > 1) {
-                    array_pop($parts);
-                    $dir = implode('/', $parts);
-                    if (!is_dir("$this->dest/$dir")) {
-                        mkdir("$this->dest/$dir", 0777, true);
-                    }
-                }
-                copy("$this->path/$file", "$this->dest/$file");
-            }
-        }
-        foreach ($this->regionDirectories as $dir) {
-            $dir->copyOtherFiles();
-        }
+        echo "[chiller] do not copy other files (AnvilWorld)\n";
+        // @mkdir($this->dest);
+        // foreach ($this->otherFiles as $file) {
+        //     if(is_link("$this->path/$file")){
+        //         continue;
+        //     }
+        //     if (is_dir("$this->path/$file")) {
+        //         Helper::copyDirectory("$this->path/$file", "$this->dest/$file");
+        //     } else {
+        //         $parts = explode('/', $file);
+        //         if (count($parts) > 1) {
+        //             array_pop($parts);
+        //             $dir = implode('/', $parts);
+        //             if (!is_dir("$this->dest/$dir")) {
+        //                 mkdir("$this->dest/$dir", 0777, true);
+        //             }
+        //         }
+        //         copy("$this->path/$file", "$this->dest/$file");
+        //     }
+        // }
+        // foreach ($this->regionDirectories as $dir) {
+        //     $dir->copyOtherFiles();
+        // }
     }
 
     /**

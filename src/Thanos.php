@@ -60,6 +60,7 @@ class Thanos
                     continue;
                 }
                 $time = $chunk->getInhabitedTime();
+                // echo "time=$time mininhabitedtime=" . $this->minInhabitedTime . " removeunknownchunks=" . $this->removeUnknownChunks . "\n";
                 if ($time > $this->minInhabitedTime || ($time === -1 && !$this->removeUnknownChunks)) {
                     $chunk->save();
                 } else {

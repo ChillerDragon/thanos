@@ -152,12 +152,19 @@ class AnvilRegion implements RegionInterface
      */
     public function save(bool $verify = true): void
     {
-        if ($this->hasExistingChunks()) {
-            $this->writeToFile(
-                $this->getDestination(),
-                $verify
-            );
+        // chiller delete instaed of copy
+        if(!$this->hasExistingChunks()) {
+            echo "[-] want to delete this savedchunks=" . $this->countSavedChunks() . " file=" . $this->getDestination() . "\n";
+            // unlink($this->getDestination());
+        } else {
+            echo "[+] want to keep this savedchunks=" . $this->countSavedChunks() . " file=" . $this->getDestination() . "\n";
         }
+        // if ($this->hasExistingChunks()) {
+        //     $this->writeToFile(
+        //         $this->getDestination(),
+        //         $verify
+        //     );
+        // }
     }
 
     /**
@@ -317,6 +324,18 @@ class AnvilRegion implements RegionInterface
         }
 
         return $has;
+    }
+
+    protected function countSavedChunks(): int
+    {
+        $count = false;
+        foreach ($this->chunks as $chunk) {
+            if ($chunk !== null && $chunk->isSaved()) {
+                $count += 1;
+            }
+        }
+
+        return $count;
     }
 
     /**

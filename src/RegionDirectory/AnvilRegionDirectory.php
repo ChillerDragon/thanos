@@ -162,14 +162,7 @@ class AnvilRegionDirectory implements RegionDirectoryInterface
     protected function saveCurrentRegion(): void
     {
         if ($this->currentRegion !== null) {
-            try {
-                $this->currentRegion->save();
-            } catch (Exception $e) {
-                copy(
-                    $this->currentRegion->getPath(),
-                    $this->currentRegion->getDestination()
-                );
-            }
+            $this->currentRegion->save();
         }
     }
 
@@ -296,23 +289,24 @@ class AnvilRegionDirectory implements RegionDirectoryInterface
      */
     public function copyOtherFiles(): void
     {
-        mkdir($this->dest, 0777, true);
-        foreach ($this->otherFiles as $file) {
-            if(is_link($this->path . DIRECTORY_SEPARATOR . $file)){
-                continue;
-            }
-            if (is_dir($this->path . DIRECTORY_SEPARATOR . $file)) {
-                Helper::copyDirectory(
-                    $this->path . DIRECTORY_SEPARATOR . $file,
-                    $this->dest . DIRECTORY_SEPARATOR . $file
-                );
-            } else {
-                copy(
-                    $this->path . DIRECTORY_SEPARATOR . $file,
-                    $this->dest . DIRECTORY_SEPARATOR . $file
-                );
-            }
-        }
+        echo "[chiller] do not copy other files\n";
+        // mkdir($this->dest, 0777, true);
+        // foreach ($this->otherFiles as $file) {
+        //     if(is_link($this->path . DIRECTORY_SEPARATOR . $file)){
+        //         continue;
+        //     }
+        //     if (is_dir($this->path . DIRECTORY_SEPARATOR . $file)) {
+        //         Helper::copyDirectory(
+        //             $this->path . DIRECTORY_SEPARATOR . $file,
+        //             $this->dest . DIRECTORY_SEPARATOR . $file
+        //         );
+        //     } else {
+        //         copy(
+        //             $this->path . DIRECTORY_SEPARATOR . $file,
+        //             $this->dest . DIRECTORY_SEPARATOR . $file
+        //         );
+        //     }
+        // }
     }
 
     /**
